@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block main %}
+
+<section>
+    <div class="container mb-5">
+        <div class="row">
+            <div class="col-md-10 mx-auto">
+                <div class="text-center mb-5">
+                    <h2>{{ thread.title }}</h2>
+                </div>
+                {% for comment in comments %}
+                <div class="card mx-auto mb-5 p-3">
+                    <h5 class="card-title">{{ comment.name }} <span class="pl-2">{{ comment.created|date:'Y/m/d H:i'}}</span></h5>
+                    <p class="card-text lead">{{ comment.body|linebreaksbr}}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="text-center py-3 mb-4">
+            <a href="/" class="btn btn-outline-secondary mx-2">TOPに戻る</a>
+            <a href="{% url 'board:thread_comment_create' thread.id %}" class="btn btn-primary mx-2">コメントを投稿する</a>
+        </div>
+        <div class="mb-5">
+            {% include 'includes/parts/pagination.html' %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}
